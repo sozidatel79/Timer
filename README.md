@@ -14,5 +14,5 @@ run content from public folder.
 2. Second option (Node.js) Run "node server.js" Or "npm start", the app will be available on localhost:3000
 --------------------------------------
 Live Demo: 
-<a target='_blank' href='http://evening-plains-32644.herokuapp.com/#/countdown?_k=ygpsy3'>React JS Weather Application</a>
+<a target='_blank' href='http://evening-plains-32644.herokuapp.com/#/countdown?_k=ygpsy3'>React JS Timer Application</a>
 --------------------------------------
