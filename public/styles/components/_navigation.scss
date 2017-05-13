@@ -1,0 +1,30 @@
+
+.top-bar, ul.menu, ul.credits{
+  background: $nav-bar-background-color;
+}
+
+.top-bar{
+
+    .menu-text{
+      color: $link-white-color;
+    }
+
+    .menu li a{
+      color: $black-color;
+      font-weight: bold;
+    }
+
+    .credits {
+      color: $link-white-color;
+      list-style: none;
+      position: relative;
+      top: 7px;
+      right: 20px;
+    }
+
+    .credits b{
+      color: #2e93d6;
+    }
+}
+
+
