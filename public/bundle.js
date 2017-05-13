@@ -108,11 +108,11 @@
 	var Countdown = __webpack_require__(232);
 
 	// Load Foundation
-	__webpack_require__(233);
+	__webpack_require__(234);
 	$(document).foundation();
 
 	//App Styles
-	__webpack_require__(237);
+	__webpack_require__(238);
 
 	ReactDOM.render(React.createElement(
 	    Router,
@@ -25617,6 +25617,7 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
+	var Clock = __webpack_require__(233);
 
 	var Countdown = React.createClass({
 	    displayName: 'Countdown',
@@ -25625,11 +25626,7 @@
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(
-	                'h3',
-	                null,
-	                'Countdown'
-	            )
+	            React.createElement(Clock, { totalSeconds: 129 })
 	        );
 	    }
 	});
@@ -25640,13 +25637,57 @@
 /* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var Clock = React.createClass({
+	    displayName: 'Clock',
+
+
+	    getDefaultProps: function getDefaultProps() {
+	        totalSeconds: 0;
+	    },
+	    propTypes: {
+	        totalSeconds: React.PropTypes.number
+	    },
+	    formatSeconds: function formatSeconds(totalSeconds) {
+	        var seconds = totalSeconds % 60;
+	        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+	        var minutes = Math.floor(totalSeconds / 60);
+	        minutes = minutes < 10 ? '0' + minutes : minutes;
+
+	        return minutes + ':' + seconds;
+	    },
+	    render: function render() {
+	        var totalSeconds = this.props.totalSeconds;
+
+	        return React.createElement(
+	            'div',
+	            { className: 'clock' },
+	            React.createElement(
+	                'span',
+	                { className: 'clock-text' },
+	                this.formatSeconds(totalSeconds)
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Clock;
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(234);
+	var content = __webpack_require__(235);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(236)(content, {});
+	var update = __webpack_require__(237)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25663,10 +25704,10 @@
 	}
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(235)();
+	exports = module.exports = __webpack_require__(236)();
 	// imports
 
 
@@ -25677,7 +25718,7 @@
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports) {
 
 	/*
@@ -25733,7 +25774,7 @@
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -25985,16 +26026,16 @@
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(238);
+	var content = __webpack_require__(239);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(236)(content, {});
+	var update = __webpack_require__(237)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26011,15 +26052,15 @@
 	}
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(235)();
+	exports = module.exports = __webpack_require__(236)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".top-bar, ul.menu, ul.credits {\n  background: #2c3840; }\n\n.top-bar .menu-text {\n  color: #fff; }\n\n.top-bar .menu li a {\n  color: #000;\n  font-weight: bold; }\n\n.top-bar .credits {\n  color: #fff;\n  list-style: none;\n  position: relative;\n  top: 7px;\n  right: 20px; }\n\n.top-bar .credits b {\n  color: #2e93d6; }\n", ""]);
+	exports.push([module.id, ".top-bar, ul.menu, ul.credits {\n  background: #2c3840; }\n\n.top-bar .menu-text {\n  color: #fff; }\n\n.top-bar .menu li a {\n  color: #000;\n  font-weight: bold; }\n\n.top-bar .credits {\n  color: #fff;\n  list-style: none;\n  position: relative;\n  top: 7px;\n  right: 20px; }\n\n.top-bar .credits b {\n  color: #2e93d6; }\n\n.clock {\n  background-color: #b5d0e2;\n  border: 2px solid #2099e8;\n  align-items: center;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n", ""]);
 
 	// exports
 

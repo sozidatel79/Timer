@@ -1,0 +1,17 @@
+.clock {
+  background-color: #b5d0e2;
+  border:2px solid #2099e8;
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 14rem;
+  justify-content: center;
+  margin: 4rem auto;
+  width: 14rem;
+}
+
+.clock-text{
+  color: white;
+  font-size: 2.25rem;
+  font-weight: 300;
+}
