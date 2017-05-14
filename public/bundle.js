@@ -105,7 +105,7 @@
 
 	var Main = __webpack_require__(229);
 	var Timer = __webpack_require__(231);
-	var Countdown = __webpack_require__(232);
+	var Countdown = __webpack_require__(234);
 
 	// Load Foundation
 	__webpack_require__(236);
@@ -25591,7 +25591,7 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
-	var Clock = __webpack_require__(233);
+	var Clock = __webpack_require__(232);
 
 	var Timer = React.createClass({
 	    displayName: 'Timer',
@@ -25614,92 +25614,7 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
-	var Clock = __webpack_require__(233);
-	var CountdownForm = __webpack_require__(234);
-	var Controls = __webpack_require__(235);
-
-	var Countdown = React.createClass({
-	    displayName: 'Countdown',
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            count: 0,
-	            status: 'stopped'
-	        };
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
-	        if (this.state.status !== prevState.status) {
-	            switch (this.state.status) {
-	                case 'started':
-	                    clearInterval(this.timer);
-	                    this.startTimer();
-	                    break;
-	                case 'stopped':
-	                    this.setState({ count: 0 });
-	                    break;
-	                case 'paused':
-	                    clearInterval(this.timer);
-	                    this.timer = undefined;
-	                    break;
-	            }
-	        }
-	    },
-	    startTimer: function startTimer() {
-	        var _this = this;
-
-	        this.timer = setInterval(function () {
-	            var newCount = _this.state.count - 1;
-	            _this.setState({
-	                count: newCount >= 0 ? newCount : 0,
-	                status: newCount >= 0 ? 'started' : 'stopped'
-	            });
-	        }, 1000);
-	    },
-	    HandleCountdownClock: function HandleCountdownClock(seconds) {
-	        this.setState({
-	            count: seconds,
-	            status: 'started'
-	        });
-	    },
-	    handleStatusChange: function handleStatusChange(newStatus) {
-	        this.setState({
-	            status: newStatus
-	        });
-	    },
-	    render: function render() {
-	        var _this2 = this;
-
-	        var _state = this.state,
-	            count = _state.count,
-	            status = _state.status;
-
-	        var that = this;
-	        var renderControls = function renderControls() {
-	            if (status !== 'stopped') {
-	                return React.createElement(Controls, { status: status, onStatusChange: _this2.handleStatusChange });
-	            } else {
-	                return React.createElement(CountdownForm, { onSetSeconds: that.HandleCountdownClock });
-	            }
-	        };
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(Clock, { totalSeconds: count }),
-	            renderControls()
-	        );
-	    }
-	});
-
-	module.exports = Countdown;
-
-/***/ }),
-/* 233 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(8);
-	var CountdownForm = __webpack_require__(234);
+	var CountdownForm = __webpack_require__(233);
 
 	var Clock = React.createClass({
 	    displayName: 'Clock',
@@ -25738,7 +25653,7 @@
 	module.exports = Clock;
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25777,6 +25692,96 @@
 	});
 
 	module.exports = CountdownForm;
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(8);
+	var Clock = __webpack_require__(232);
+	var CountdownForm = __webpack_require__(233);
+	var Controls = __webpack_require__(235);
+
+	var Countdown = React.createClass({
+	    displayName: 'Countdown',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            count: 0,
+	            status: 'stopped'
+	        };
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	        if (this.state.status !== prevState.status) {
+	            switch (this.state.status) {
+	                case 'started':
+	                    clearInterval(this.timer);
+	                    this.startTimer();
+	                    break;
+	                case 'stopped':
+	                    this.setState({ count: 0 });
+	                    break;
+	                case 'paused':
+	                    clearInterval(this.timer);
+	                    this.timer = undefined;
+	                    break;
+	            }
+	        }
+	    },
+	    startTimer: function startTimer() {
+	        var _this = this;
+
+	        this.timer = setInterval(function () {
+	            var newCount = _this.state.count - 1;
+	            _this.setState({
+	                count: newCount >= 0 ? newCount : 0,
+	                status: newCount >= 0 ? 'started' : 'stopped'
+	            });
+	            if (newCount < 0) {
+	                clearInterval(_this.timer);
+	            }
+	        }, 1000);
+	    },
+	    HandleCountdownClock: function HandleCountdownClock(seconds) {
+	        this.setState({
+	            count: seconds,
+	            status: 'started'
+	        });
+	    },
+	    handleStatusChange: function handleStatusChange(newStatus) {
+	        this.setState({
+	            status: newStatus
+	        });
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        clearInterval(this.timer);
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        var _state = this.state,
+	            count = _state.count,
+	            status = _state.status;
+
+	        var renderControls = function renderControls() {
+	            if (status !== 'stopped') {
+	                return React.createElement(Controls, { status: status, onStatusChange: _this2.handleStatusChange });
+	            } else {
+	                return React.createElement(CountdownForm, { onSetSeconds: _this2.HandleCountdownClock });
+	            }
+	        };
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(Clock, { totalSeconds: count }),
+	            renderControls()
+	        );
+	    }
+	});
+
+	module.exports = Countdown;
 
 /***/ }),
 /* 235 */
