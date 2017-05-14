@@ -15,7 +15,7 @@ var Controls = React.createClass({
         var renderStartStopButton = () => {
             if (status === 'started'){
                 return <button onClick={this.onStatusChange('paused')} className="button secondary">Pause</button>
-            }else if (status === 'paused'){
+            }else if (status === 'paused' || status == 'stopped'){
                 return <button onClick={this.onStatusChange('started')} className="button primary">Start</button>
             }else if (status == 'stopped'){
                 return <button onClick={this.onStatusChange('started')} className="button primary">Start</button>
@@ -24,7 +24,7 @@ var Controls = React.createClass({
         return (
             <div className="controls">
                 {renderStartStopButton()}
-                <button onClick={this.onStatusChange('stopped')} className="button hollow alert">Clear</button>
+                <button onClick={this.onStatusChange('stopped')} className="button hollow secondary">Clear</button>
             </div>
         );
     }

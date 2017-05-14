@@ -25879,7 +25879,7 @@
 	                    { onClick: _this2.onStatusChange('paused'), className: 'button secondary' },
 	                    'Pause'
 	                );
-	            } else if (status === 'paused') {
+	            } else if (status === 'paused' || status == 'stopped') {
 	                return React.createElement(
 	                    'button',
 	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
@@ -25899,7 +25899,7 @@
 	            renderStartStopButton(),
 	            React.createElement(
 	                'button',
-	                { onClick: this.onStatusChange('stopped'), className: 'button hollow alert' },
+	                { onClick: this.onStatusChange('stopped'), className: 'button hollow secondary' },
 	                'Clear'
 	            )
 	        );
