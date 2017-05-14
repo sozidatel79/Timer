@@ -25592,11 +25592,62 @@
 
 	var React = __webpack_require__(8);
 	var Clock = __webpack_require__(232);
+	var Controls = __webpack_require__(235);
 
 	var Timer = React.createClass({
 	    displayName: 'Timer',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            count: 0,
+	            status: 'stopped'
+	        };
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	        if (this.state.status !== prevState.status) {
+	            switch (this.state.status) {
+	                case 'started':
+	                    clearInterval(this.timer);
+	                    this.startTimer();
+	                    break;
+	                case 'stopped':
+	                    this.setState({ count: 0 });
+	                    clearInterval(this.timer);
+	                    break;
+	                case 'paused':
+	                    clearInterval(this.timer);
+	                    this.timer = undefined;
+	                    break;
+	            }
+	        }
+	    },
+	    startTimer: function startTimer() {
+	        var _this = this;
+
+	        this.timer = setInterval(function () {
+	            var newCount = _this.state.count + 1;
+	            _this.setState({
+	                count: newCount >= 0 ? newCount : 0,
+	                status: newCount >= 0 ? 'started' : 'stopped'
+	            });
+	            if (newCount < 0) {
+	                clearInterval(_this.timer);
+	            }
+	        }, 1000);
+	    },
+	    handleStatusChange: function handleStatusChange(newStatus) {
+	        this.setState({
+	            status: newStatus
+	        });
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        clearInterval(this.timer);
+	    },
 	    render: function render() {
+	        var _state = this.state,
+	            count = _state.count,
+	            status = _state.status;
+
 	        return React.createElement(
 	            'div',
 	            null,
@@ -25605,7 +25656,8 @@
 	                { className: 'page-title' },
 	                'Timer App'
 	            ),
-	            React.createElement(Clock, { totalSeconds: 0 })
+	            React.createElement(Clock, { totalSeconds: count }),
+	            React.createElement(Controls, { status: status, onStatusChange: this.handleStatusChange })
 	        );
 	    }
 	});
@@ -25828,6 +25880,12 @@
 	                    'Pause'
 	                );
 	            } else if (status === 'paused') {
+	                return React.createElement(
+	                    'button',
+	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
+	                    'Start'
+	                );
+	            } else if (status == 'stopped') {
 	                return React.createElement(
 	                    'button',
 	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
