@@ -25591,6 +25591,7 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
+	var Clock = __webpack_require__(233);
 
 	var Timer = React.createClass({
 	    displayName: 'Timer',
@@ -25599,11 +25600,7 @@
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(
-	                'h3',
-	                null,
-	                'Timer'
-	            )
+	            React.createElement(Clock, { totalSeconds: 0 })
 	        );
 	    }
 	});
@@ -25794,7 +25791,7 @@
 
 	    propTypes: {
 	        status: React.PropTypes.string.isRequired,
-	        onStatusChange: React.PropTypes.func.isRequired
+	        onStatusChange: React.PropTypes.func
 	    },
 	    onStatusChange: function onStatusChange(newStatus) {
 	        var _this = this;
@@ -26221,7 +26218,7 @@
 
 
 	// module
-	exports.push([module.id, ".top-bar, ul.menu, ul.credits {\n  background: #2c3840; }\n\n.top-bar .menu-text {\n  color: #fff; }\n\n.top-bar .menu li a {\n  color: #000;\n  font-weight: bold; }\n\n.top-bar .credits {\n  color: #fff;\n  list-style: none;\n  position: relative;\n  top: 7px;\n  right: 20px; }\n\n.top-bar .credits b {\n  color: #2e93d6; }\n\n.clock {\n  background-color: #b5d0e2;\n  border: 2px solid #2099e8;\n  align-items: center;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n\n.controls {\n  width: 56%;\n  margin: 0 auto;\n  position: relative;\n  left: 13px; }\n  .controls button {\n    margin-right: 2px;\n    width: 100px;\n    outline: none; }\n", ""]);
+	exports.push([module.id, ".top-bar, ul.menu, ul.credits {\n  background: #2c3840; }\n\n.top-bar .menu-text {\n  color: #fff; }\n\n.top-bar .menu li a {\n  color: #000;\n  font-weight: bold; }\n\n.top-bar .credits {\n  color: #fff;\n  list-style: none;\n  position: relative;\n  top: 7px;\n  right: 20px; }\n\n.top-bar .credits b {\n  color: #2e93d6; }\n\n.clock {\n  background-color: #b5d0e2;\n  border: 2px solid #2099e8;\n  align-items: center;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n\n.controls {\n  width: 60%;\n  margin: 0 auto;\n  position: relative;\n  left: 13px; }\n  .controls button {\n    margin-right: 1px;\n    width: 100px;\n    outline: none; }\n", ""]);
 
 	// exports
 
