@@ -25625,12 +25625,36 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            count: 0
+	            count: 0,
+	            status: 'stopped'
 	        };
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	        if (this.state.status !== prevState.status) {
+	            switch (this.state.status) {
+	                case 'started':
+	                    this.startTimer();
+	                    break;
+	                case 'stopped':
+
+	                    break;
+	            }
+	        }
+	    },
+	    startTimer: function startTimer() {
+	        var _this = this;
+
+	        this.timer = setInterval(function () {
+	            var newCount = _this.state.count - 1;
+	            _this.setState({
+	                count: newCount > 0 ? newCount : 0
+	            });
+	        }, 1000);
 	    },
 	    HandleCountdownClock: function HandleCountdownClock(seconds) {
 	        this.setState({
-	            count: seconds
+	            count: seconds,
+	            status: 'started'
 	        });
 	    },
 	    render: function render() {
