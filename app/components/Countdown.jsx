@@ -39,7 +39,7 @@ var Countdown = React.createClass({
             }
         }, 1000 );
     },
-    HandleCountdownClock:function (seconds) {
+    handleCountdownClock:function (seconds) {
         this.setState({
             count: seconds,
             status: 'started'
@@ -59,7 +59,7 @@ var Countdown = React.createClass({
             if(status !== 'stopped'){
                 return <Controls status={status} onStatusChange={this.handleStatusChange}/>
             }else {
-                return <CountdownForm onSetSeconds={this.HandleCountdownClock}/>
+                return <CountdownForm onSetSeconds={this.handleCountdownClock}/>
             }
         }
         return  (

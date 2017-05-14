@@ -15,7 +15,7 @@ describe('Countdown', () => {
     describe('Handle countdown clock', () => {
         it('should set state and countdown', (done) => {
             var countdown = TestUtils.renderIntoDocument(<Countdown/>);
-            countdown.HandleCountdownClock(10);
+            countdown.handleCountdownClock(10);
             expect(countdown.state.count).toBe(10);
             expect(countdown.state.status).toBe('started');
             setTimeout(() => {
@@ -26,11 +26,22 @@ describe('Countdown', () => {
 
         it('should not set countdown to be negative', (done) => {
             var countdown = TestUtils.renderIntoDocument(<Countdown/>);
-            countdown.HandleCountdownClock(1);
+            countdown.handleCountdownClock(1);
             setTimeout(() => {
                 expect(countdown.state.count).toBe(0);
                 done();
-            },2001)
+            },3001)
+        });
+
+        it('should pause countdown on pause status', (done) => {
+            var countdown = TestUtils.renderIntoDocument(<Countdown/>);
+            countdown.handleCountdownClock(3);
+            countdown.handleStatusChange('paused');
+            setTimeout(() => {
+               expect(countdown.state.count).toBe(3);
+               expect(countdown.state.status).toBe('paused');
+               done();
+            }, 1001);
         });
     });
 

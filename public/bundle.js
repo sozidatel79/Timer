@@ -25744,7 +25744,7 @@
 	            }
 	        }, 1000);
 	    },
-	    HandleCountdownClock: function HandleCountdownClock(seconds) {
+	    handleCountdownClock: function handleCountdownClock(seconds) {
 	        this.setState({
 	            count: seconds,
 	            status: 'started'
@@ -25769,7 +25769,7 @@
 	            if (status !== 'stopped') {
 	                return React.createElement(Controls, { status: status, onStatusChange: _this2.handleStatusChange });
 	            } else {
-	                return React.createElement(CountdownForm, { onSetSeconds: _this2.HandleCountdownClock });
+	                return React.createElement(CountdownForm, { onSetSeconds: _this2.handleCountdownClock });
 	            }
 	        };
 	        return React.createElement(
