@@ -43,6 +43,18 @@ describe('Countdown', () => {
                done();
             }, 1001);
         });
+
+        it('should reset countdown on stopped status', (done) => {
+            var countdown = TestUtils.renderIntoDocument(<Countdown/>);
+            countdown.handleCountdownClock(3);
+            countdown.handleStatusChange('stopped');
+            setTimeout(() => {
+                expect(countdown.state.count).toBe(0);
+                expect(countdown.state.status).toBe('stopped');
+                done();
+            }, 2001);
+        });
+
     });
 
 });
