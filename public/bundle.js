@@ -105,7 +105,7 @@
 
 	var Main = __webpack_require__(229);
 	var Timer = __webpack_require__(231);
-	var Countdown = __webpack_require__(234);
+	var Countdown = __webpack_require__(235);
 
 	// Load Foundation
 	__webpack_require__(236);
@@ -25592,7 +25592,7 @@
 
 	var React = __webpack_require__(8);
 	var Clock = __webpack_require__(232);
-	var Controls = __webpack_require__(235);
+	var Controls = __webpack_require__(234);
 
 	var Timer = React.createClass({
 	    displayName: 'Timer',
@@ -25757,9 +25757,66 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
+
+	var Controls = React.createClass({
+	    displayName: 'Controls',
+
+	    propTypes: {
+	        status: React.PropTypes.string.isRequired,
+	        onStatusChange: React.PropTypes.func
+	    },
+	    onStatusChange: function onStatusChange(newStatus) {
+	        var _this = this;
+
+	        return function () {
+	            _this.props.onStatusChange(newStatus);
+	        };
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        var status = this.props.status;
+
+	        var renderStartStopButton = function renderStartStopButton() {
+	            if (status === 'started') {
+	                return React.createElement(
+	                    'button',
+	                    { onClick: _this2.onStatusChange('paused'), className: 'button secondary' },
+	                    'Pause'
+	                );
+	            } else {
+	                return React.createElement(
+	                    'button',
+	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
+	                    'Start'
+	                );
+	            }
+	        };
+	        return React.createElement(
+	            'div',
+	            { className: 'controls' },
+	            renderStartStopButton(),
+	            React.createElement(
+	                'button',
+	                { onClick: this.onStatusChange('stopped'), className: 'button hollow secondary' },
+	                'Clear'
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Controls;
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(8);
 	var Clock = __webpack_require__(232);
 	var CountdownForm = __webpack_require__(233);
-	var Controls = __webpack_require__(235);
+	var Controls = __webpack_require__(234);
 
 	var Countdown = React.createClass({
 	    displayName: 'Countdown',
@@ -25844,69 +25901,6 @@
 	});
 
 	module.exports = Countdown;
-
-/***/ }),
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(8);
-
-	var Controls = React.createClass({
-	    displayName: 'Controls',
-
-	    propTypes: {
-	        status: React.PropTypes.string.isRequired,
-	        onStatusChange: React.PropTypes.func
-	    },
-	    onStatusChange: function onStatusChange(newStatus) {
-	        var _this = this;
-
-	        return function () {
-	            _this.props.onStatusChange(newStatus);
-	        };
-	    },
-	    render: function render() {
-	        var _this2 = this;
-
-	        var status = this.props.status;
-
-	        var renderStartStopButton = function renderStartStopButton() {
-	            if (status === 'started') {
-	                return React.createElement(
-	                    'button',
-	                    { onClick: _this2.onStatusChange('paused'), className: 'button secondary' },
-	                    'Pause'
-	                );
-	            } else if (status === 'paused' || status == 'stopped') {
-	                return React.createElement(
-	                    'button',
-	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
-	                    'Start'
-	                );
-	            } else if (status == 'stopped') {
-	                return React.createElement(
-	                    'button',
-	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
-	                    'Start'
-	                );
-	            }
-	        };
-	        return React.createElement(
-	            'div',
-	            { className: 'controls' },
-	            renderStartStopButton(),
-	            React.createElement(
-	                'button',
-	                { onClick: this.onStatusChange('stopped'), className: 'button hollow secondary' },
-	                'Clear'
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Controls;
 
 /***/ }),
 /* 236 */

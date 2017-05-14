@@ -18,8 +18,8 @@ describe('Controls', () => {
         it('should render Pause button when started', () => {
             var controls = TestUtils.renderIntoDocument(<Controls status='started'/>);
             var $el = $(ReactDOM.findDOMNode(controls));
-            var buttonText = $el.find('.secondary').text();
-            expect(buttonText).toBe('Pause');
+            var $buttonText = $el.find('button:contains(Pause)');
+            expect($buttonText.length).toBe(1);
         });
 
         it('should render Start button when paused', () => {
