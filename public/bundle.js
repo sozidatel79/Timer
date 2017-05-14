@@ -25634,10 +25634,15 @@
 	        if (this.state.status !== prevState.status) {
 	            switch (this.state.status) {
 	                case 'started':
+	                    clearInterval(this.timer);
 	                    this.startTimer();
 	                    break;
 	                case 'stopped':
-
+	                    this.setState({ count: 0 });
+	                    break;
+	                case 'paused':
+	                    clearInterval(this.timer);
+	                    this.timer = undefined;
 	                    break;
 	            }
 	        }
@@ -25648,7 +25653,8 @@
 	        this.timer = setInterval(function () {
 	            var newCount = _this.state.count - 1;
 	            _this.setState({
-	                count: newCount >= 0 ? newCount : 0
+	                count: newCount >= 0 ? newCount : 0,
+	                status: newCount >= 0 ? 'started' : 'stopped'
 	            });
 	        }, 1000);
 	    },
@@ -25658,19 +25664,26 @@
 	            status: 'started'
 	        });
 	    },
+	    handleStatusChange: function handleStatusChange(newStatus) {
+	        this.setState({
+	            status: newStatus
+	        });
+	    },
 	    render: function render() {
+	        var _this2 = this;
+
 	        var _state = this.state,
 	            count = _state.count,
 	            status = _state.status;
 
 	        var that = this;
-	        function renderControls() {
-	            if (status == 'stopped') {
+	        var renderControls = function renderControls() {
+	            if (status !== 'stopped') {
+	                return React.createElement(Controls, { status: status, onStatusChange: _this2.handleStatusChange });
+	            } else {
 	                return React.createElement(CountdownForm, { onSetSeconds: that.HandleCountdownClock });
-	            } else if (status == 'started' || status == 'paused') {
-	                return React.createElement(Controls, { status: status });
 	            }
-	        }
+	        };
 	        return React.createElement(
 	            'div',
 	            null,
@@ -25780,19 +25793,18 @@
 	    displayName: 'Controls',
 
 	    propTypes: {
-	        status: React.PropTypes.string.isRequired
+	        status: React.PropTypes.string.isRequired,
+	        onStatusChange: React.PropTypes.func.isRequired
 	    },
-	    pauseClicked: function pauseClicked() {
-	        console.log('pause');
-	    },
-	    startClicked: function startClicked() {
-	        console.log('start');
-	    },
-	    clearClicked: function clearClicked() {
-	        console.log('clear');
+	    onStatusChange: function onStatusChange(newStatus) {
+	        var _this = this;
+
+	        return function () {
+	            _this.props.onStatusChange(newStatus);
+	        };
 	    },
 	    render: function render() {
-	        var _this = this;
+	        var _this2 = this;
 
 	        var status = this.props.status;
 
@@ -25800,13 +25812,13 @@
 	            if (status === 'started') {
 	                return React.createElement(
 	                    'button',
-	                    { onClick: _this.pauseClicked, className: 'button secondary' },
+	                    { onClick: _this2.onStatusChange('paused'), className: 'button secondary' },
 	                    'Pause'
 	                );
 	            } else if (status === 'paused') {
 	                return React.createElement(
 	                    'button',
-	                    { onClick: _this.startClicked, className: 'button primary' },
+	                    { onClick: _this2.onStatusChange('started'), className: 'button primary' },
 	                    'Start'
 	                );
 	            }
@@ -25817,7 +25829,7 @@
 	            renderStartStopButton(),
 	            React.createElement(
 	                'button',
-	                { onClick: this.clearClicked, className: 'button hollow alert' },
+	                { onClick: this.onStatusChange('stopped'), className: 'button hollow alert' },
 	                'Clear'
 	            )
 	        );
@@ -26209,7 +26221,7 @@
 
 
 	// module
-	exports.push([module.id, ".top-bar, ul.menu, ul.credits {\n  background: #2c3840; }\n\n.top-bar .menu-text {\n  color: #fff; }\n\n.top-bar .menu li a {\n  color: #000;\n  font-weight: bold; }\n\n.top-bar .credits {\n  color: #fff;\n  list-style: none;\n  position: relative;\n  top: 7px;\n  right: 20px; }\n\n.top-bar .credits b {\n  color: #2e93d6; }\n\n.clock {\n  background-color: #b5d0e2;\n  border: 2px solid #2099e8;\n  align-items: center;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n", ""]);
+	exports.push([module.id, ".top-bar, ul.menu, ul.credits {\n  background: #2c3840; }\n\n.top-bar .menu-text {\n  color: #fff; }\n\n.top-bar .menu li a {\n  color: #000;\n  font-weight: bold; }\n\n.top-bar .credits {\n  color: #fff;\n  list-style: none;\n  position: relative;\n  top: 7px;\n  right: 20px; }\n\n.top-bar .credits b {\n  color: #2e93d6; }\n\n.clock {\n  background-color: #b5d0e2;\n  border: 2px solid #2099e8;\n  align-items: center;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.25rem;\n  font-weight: 300; }\n\n.controls {\n  width: 56%;\n  margin: 0 auto;\n  position: relative;\n  left: 13px; }\n  .controls button {\n    margin-right: 2px;\n    width: 100px;\n    outline: none; }\n", ""]);
 
 	// exports
 
