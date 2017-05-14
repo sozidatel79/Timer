@@ -34,9 +34,7 @@ var Timer = React.createClass({
                 count: (newCount >= 0) ? newCount : 0,
                 status: (newCount >= 0) ? 'started' : 'stopped',
             });
-            if (newCount < 0){
-                clearInterval(this.timer);
-            }
+            (newCount < 0) ? clearInterval(this.timer) : '' ;
         }, 1000 );
     },
     handleStatusChange: function (newStatus) {

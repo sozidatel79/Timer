@@ -25630,9 +25630,7 @@
 	                count: newCount >= 0 ? newCount : 0,
 	                status: newCount >= 0 ? 'started' : 'stopped'
 	            });
-	            if (newCount < 0) {
-	                clearInterval(_this.timer);
-	            }
+	            newCount < 0 ? clearInterval(_this.timer) : '';
 	        }, 1000);
 	    },
 	    handleStatusChange: function handleStatusChange(newStatus) {
