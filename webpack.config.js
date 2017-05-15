@@ -20,15 +20,12 @@ module.exports = {
   },
   resolve: {
     root: __dirname,
+    modulesDirectories:[
+        'node_modules',
+        'app/components'
+    ],
     alias: {
         ApplicationStyles: 'public/styles/app.scss',
-        Main: 'app/components/main.jsx',
-        Countdown: 'app/components/Countdown.jsx',
-        Timer: 'app/components/Timer.jsx',
-        Nav: 'app/components/Nav.jsx',
-        Clock: 'app/components/Clock.jsx',
-        CountdownForm: 'app/components/CountdownForm.jsx',
-        Controls: 'app/components/Controls.jsx',
     },
     extensions: ['', '.js', '.jsx']
   },
