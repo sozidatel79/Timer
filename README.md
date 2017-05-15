@@ -19,5 +19,5 @@ In order to run tests
 2. Run 'npm test'
 --------------------------------------------
 Live Demo: 
-<a target='_blank' href='artimer.herokuapp.com'>React JS Timer Application</a>
+<a target='_blank' href='https://artimer.herokuapp.com'>React JS Timer Application</a>
 --------------------------------------
